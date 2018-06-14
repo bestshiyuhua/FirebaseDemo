@@ -19,7 +19,6 @@
 
 - (void)viewDidLoad {
     //[super viewDidLoad];
-    [FIRApp configure];
     // Do any additional setup after loading the view, typically from a nib.
 }
 - (void)viewDidAppear:(BOOL)animated
@@ -31,9 +30,7 @@
         self.MailTextField.text = user.email;
         // ...
     }
-
 }
-
 //登录状态确认
 -(BOOL)isUserSignedIn{
     NSLog(@"%s","isUserSignedIn");
@@ -91,7 +88,7 @@ didSignInWithUser:(nullable FIRUser *)user
     }
     else{
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Alert"
-                                                                                 message:@"You have signed in already!"
+                                                                                 message:@"You have already signed in !"
                                                                         preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSLog(@"OK Action");
@@ -104,7 +101,7 @@ didSignInWithUser:(nullable FIRUser *)user
 }
 //SignOUT按钮
 - (IBAction)SignoutBtn:(id)sender {
-    NSError *signOutError;
+        NSError *signOutError;
     BOOL status = [[FIRAuth auth] signOut:&signOutError];
     if (!status) {
         NSLog(@"Error signing out: %@", signOutError);

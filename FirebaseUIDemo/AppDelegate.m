@@ -22,7 +22,14 @@
 //twitter Kit,Facebook Kit 初始化
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //firebase初始化
+    [FIRApp configure];
+    //Firestore初始化
+    FIRFirestore *defaultFirestore = [FIRFirestore firestore];
+    NSLog(@"%@", defaultFirestore);
+    //TwitterKit初始化
     [[Twitter sharedInstance] startWithConsumerKey:@"WcmvzBV1Ob5Mwf1hcuTnReSEv" consumerSecret:@"kGcK1FA76z6gon950PFsOa7QFs7zWkcO8ujw65FzyfMMyMPkNl"];
+    //FbKit初始化
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     return YES;
