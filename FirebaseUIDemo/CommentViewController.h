@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @interface CommentViewController : UITableViewController 
-@property (weak, nonatomic) IBOutlet UITextField *nameQueryTextField;
-@property (weak, nonatomic) IBOutlet UITextField *bornQueryTextField;
-- (IBAction)queryBtn:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *bornTextField;
-@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 - (IBAction)submitBtn:(id)sender;
 //@property(nonatomic, strong) NSArray *listTeams;
 @end
