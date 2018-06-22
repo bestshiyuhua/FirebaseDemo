@@ -12,6 +12,8 @@
 @import Firebase;
 
 @interface CommentViewController ()<UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
+@property (weak, nonatomic) IBOutlet UITableView *CommentView;
 @property (nonatomic, readwrite) FIRFirestore *db;
 @property (nonatomic,readwrite) NSMutableArray *tabledata_name;
 @property (nonatomic,readwrite) NSMutableArray *tabledata_comment;
@@ -43,12 +45,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib
     //[self.tabledata addObject:@""];
+    //监听键盘
+     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    //datasource & delegate
+    self.CommentView.dataSource = self;
+    self.CommentView.delegate = self;
     //预计高度为430--即是cell高度
-    self.tableView.estimatedRowHeight = 40.0f;
+    self.CommentView.estimatedRowHeight = 40.0f;
     //自适应高度
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.CommentView.rowHeight = UITableViewAutomaticDimension;
     //[self.tableView registerClass:[CustomCell class] forCellReuseIdentifier:@"CellIdentifier"];
+    //firestroe初始化
     self.db = [FIRFirestore firestore];
+    //分割线长度(top,left,bottom,right)
+    self.CommentView.separatorInset = UIEdgeInsetsMake(0, 50, 0, 15);
 }
 
 /*- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -58,21 +68,22 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.tabledata_name.count;
+    //return self.tabledata_name.count;
+    return 3;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"CellIdentifier";
+    static NSString *CellIdentifier = @"CommentCell";
 
     //NSMutableArray *tabledata = [[NSMutableArray alloc] initWithCapacity:0];
     
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    //cell.mylabel.text = self.tabledata_name[0];
-    cell.mylabel.text = [[self.tabledata_name objectAtIndex:indexPath.row]capitalizedString];
-    cell.myImageView.image = [UIImage imageNamed:@"Custom_image*2.png"];
-    //cell.mylabel2.text = self.tabledata_comment[0];
-    cell.mylabel2.text = [[self.tabledata_comment objectAtIndex:indexPath.row]capitalizedString];
+    //cell.UserNameLabel.text = [[self.tabledata_name objectAtIndex:indexPath.row]capitalizedString];
+    cell.UserNameLabel.text = @"shiyuhua";
+    cell.UserImageView.image = [UIImage imageNamed:@"Custom_image*2.png"];
+    cell.CommentTextLabel.text = @"222222222222222222222";
+    //cell.CommentTextLabel.text = [[self.tabledata_comment objectAtIndex:indexPath.row]capitalizedString];
     return cell;
 }
 
@@ -83,7 +94,6 @@
     //@"name": _nameTextField.text,
     @"uid": user.uid,
     @"name": user.displayName,
-    @"comment": _bornTextField.text
     } completion:^(NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Error writing document: %@", error);
@@ -104,7 +114,7 @@
             NSString *comment = [snapshot.data objectForKey:@"comment"];
             [self.tabledata_comment addObject:comment];
             NSLog(@"name:%@,comment:%@",name,comment);
-            [self.tableView reloadData];
+            [self.CommentView reloadData];
         } else {
             NSLog(@"Document does not exist");
         }
@@ -114,6 +124,34 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+//键盘弹出
+-(void)keyboardWillChangeFrame:(NSNotification*)notification{
+    
+    NSLog(@"notification-info:%@",notification.userInfo);
+    
+    //获取键盘弹起时y值
+    CGFloat keyboardY=[notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
+    
+    //改变底部约束
+    self.bottomConstraint.constant=[UIScreen mainScreen].bounds.size.height-keyboardY;
+    //获取键盘弹起时间
+    CGFloat duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    [UIView animateWithDuration: duration animations:^{
+        [self.view layoutIfNeeded];
+    }];
+    
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    [self.view endEditing:YES];
+    
+}
+-(void)dealloc{
+    //移除通知
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    
 }
 
 @end

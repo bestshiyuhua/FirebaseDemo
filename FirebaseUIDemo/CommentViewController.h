@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface CommentViewController : UITableViewController 
-@property (weak, nonatomic) IBOutlet UITextField *bornTextField;
-- (IBAction)submitBtn:(id)sender;
+@interface CommentViewController : UIViewController
+
 //@property(nonatomic, strong) NSArray *listTeams;
 @end

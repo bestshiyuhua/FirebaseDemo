@@ -19,6 +19,13 @@
 		94AD01B020C7B601000FF912 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94AD01AF20C7B600000FF912 /* GoogleService-Info.plist */; };
 		94AD01B120C7B601000FF912 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94AD01AF20C7B600000FF912 /* GoogleService-Info.plist */; };
 		94AD01B220C7B601000FF912 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94AD01AF20C7B600000FF912 /* GoogleService-Info.plist */; };
+		94BD9C5120DC8F9C0041623E /* CommentInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BD9C5020DC8F9C0041623E /* CommentInputView.m */; };
+		94BD9C5C20DC9B950041623E /* IDNFeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BD9C5520DC9B940041623E /* IDNFeedParser.m */; };
+		94BD9C5D20DC9B950041623E /* NSDate+InternetDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BD9C5920DC9B940041623E /* NSDate+InternetDateTime.m */; };
+		94BD9C5E20DC9B950041623E /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BD9C5A20DC9B940041623E /* NSString+HTML.m */; };
+		94BD9C5F20DC9B950041623E /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BD9C5B20DC9B940041623E /* GTMNSString+HTML.m */; };
+		94BD9C6220DC9BC90041623E /* RssViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BD9C6120DC9BC90041623E /* RssViewController.m */; };
+		94BD9C6520DCA4CA0041623E /* RssTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BD9C6420DCA4CA0041623E /* RssTableViewCell.m */; };
 		94C9980A20CA5A2C004E3C57 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C9980820CA5A2B004E3C57 /* CustomCell.m */; };
 		94C9980F20CA60C1004E3C57 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C9980E20CA60C1004E3C57 /* CommentViewController.m */; };
 		A5FACC3C236C88D3EABCA2D4 /* Pods_FirebaseUIDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEFE95E29DB942FB23AF4A0 /* Pods_FirebaseUIDemoTests.framework */; };
@@ -67,6 +74,20 @@
 		94AD01A120C7B4F2000FF912 /* FirebaseUIDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirebaseUIDemoUITests.m; sourceTree = "<group>"; };
 		94AD01A320C7B4F2000FF912 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94AD01AF20C7B600000FF912 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		94BD9C4F20DC8F9C0041623E /* CommentInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentInputView.h; sourceTree = "<group>"; };
+		94BD9C5020DC8F9C0041623E /* CommentInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentInputView.m; sourceTree = "<group>"; };
+		94BD9C5420DC9B940041623E /* NSDate+InternetDateTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+InternetDateTime.h"; sourceTree = "<group>"; };
+		94BD9C5520DC9B940041623E /* IDNFeedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDNFeedParser.m; sourceTree = "<group>"; };
+		94BD9C5620DC9B940041623E /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
+		94BD9C5720DC9B940041623E /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		94BD9C5820DC9B940041623E /* IDNFeedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDNFeedParser.h; sourceTree = "<group>"; };
+		94BD9C5920DC9B940041623E /* NSDate+InternetDateTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+InternetDateTime.m"; sourceTree = "<group>"; };
+		94BD9C5A20DC9B940041623E /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
+		94BD9C5B20DC9B940041623E /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		94BD9C6020DC9BC90041623E /* RssViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RssViewController.h; sourceTree = "<group>"; };
+		94BD9C6120DC9BC90041623E /* RssViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RssViewController.m; sourceTree = "<group>"; };
+		94BD9C6320DCA4CA0041623E /* RssTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RssTableViewCell.h; sourceTree = "<group>"; };
+		94BD9C6420DCA4CA0041623E /* RssTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RssTableViewCell.m; sourceTree = "<group>"; };
 		94C9980820CA5A2B004E3C57 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
 		94C9980920CA5A2C004E3C57 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
 		94C9980E20CA60C1004E3C57 /* CommentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
@@ -154,9 +175,14 @@
 		94AD017C20C7B4F0000FF912 /* FirebaseUIDemo */ = {
 			isa = PBXGroup;
 			children = (
+				94BD9C5320DC9B940041623E /* IDNFeedParser */,
 				9400AF0020D09F97008C6278 /* Custom_image*2.png */,
 				94C9980E20CA60C1004E3C57 /* CommentViewController.m */,
 				94C9981020CA60CF004E3C57 /* CommentViewController.h */,
+				94BD9C6020DC9BC90041623E /* RssViewController.h */,
+				94BD9C6120DC9BC90041623E /* RssViewController.m */,
+				94BD9C6320DCA4CA0041623E /* RssTableViewCell.h */,
+				94BD9C6420DCA4CA0041623E /* RssTableViewCell.m */,
 				94C9980820CA5A2B004E3C57 /* CustomCell.m */,
 				94C9980920CA5A2C004E3C57 /* CustomCell.h */,
 				94AD01AF20C7B600000FF912 /* GoogleService-Info.plist */,
@@ -165,6 +191,8 @@
 				94AD018020C7B4F0000FF912 /* ViewController.h */,
 				94AD018120C7B4F0000FF912 /* ViewController.m */,
 				94AD018320C7B4F0000FF912 /* Main.storyboard */,
+				94BD9C4F20DC8F9C0041623E /* CommentInputView.h */,
+				94BD9C5020DC8F9C0041623E /* CommentInputView.m */,
 				94AD018620C7B4F2000FF912 /* Assets.xcassets */,
 				94AD018820C7B4F2000FF912 /* LaunchScreen.storyboard */,
 				94AD018B20C7B4F2000FF912 /* Info.plist */,
@@ -191,6 +219,21 @@
 			);
 			path = FirebaseUIDemoUITests;
 			sourceTree = "<group>";
+		};
+		94BD9C5320DC9B940041623E /* IDNFeedParser */ = {
+			isa = PBXGroup;
+			children = (
+				94BD9C5420DC9B940041623E /* NSDate+InternetDateTime.h */,
+				94BD9C5520DC9B940041623E /* IDNFeedParser.m */,
+				94BD9C5620DC9B940041623E /* NSString+HTML.h */,
+				94BD9C5720DC9B940041623E /* GTMNSString+HTML.h */,
+				94BD9C5820DC9B940041623E /* IDNFeedParser.h */,
+				94BD9C5920DC9B940041623E /* NSDate+InternetDateTime.m */,
+				94BD9C5A20DC9B940041623E /* NSString+HTML.m */,
+				94BD9C5B20DC9B940041623E /* GTMNSString+HTML.m */,
+			);
+			path = IDNFeedParser;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -477,7 +520,14 @@
 			files = (
 				94AD018220C7B4F0000FF912 /* ViewController.m in Sources */,
 				94AD018D20C7B4F2000FF912 /* main.m in Sources */,
+				94BD9C5C20DC9B950041623E /* IDNFeedParser.m in Sources */,
 				94C9980A20CA5A2C004E3C57 /* CustomCell.m in Sources */,
+				94BD9C6520DCA4CA0041623E /* RssTableViewCell.m in Sources */,
+				94BD9C5E20DC9B950041623E /* NSString+HTML.m in Sources */,
+				94BD9C5D20DC9B950041623E /* NSDate+InternetDateTime.m in Sources */,
+				94BD9C5120DC8F9C0041623E /* CommentInputView.m in Sources */,
+				94BD9C6220DC9BC90041623E /* RssViewController.m in Sources */,
+				94BD9C5F20DC9B950041623E /* GTMNSString+HTML.m in Sources */,
 				94AD017F20C7B4F0000FF912 /* AppDelegate.m in Sources */,
 				94C9980F20CA60C1004E3C57 /* CommentViewController.m in Sources */,
 			);

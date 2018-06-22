@@ -9,8 +9,9 @@
 
 @interface CustomCell : UITableViewCell
 //@property (weak, nonatomic) IBOutlet UIImageView *myImage;
-@property (weak, nonatomic) IBOutlet UIImageView *myImageView;
-@property (weak, nonatomic) IBOutlet UILabel *mylabel;
-@property (weak, nonatomic) IBOutlet UILabel *mylabel2;
+@property (weak, nonatomic) IBOutlet UIImageView *UserImageView;
+@property (weak, nonatomic) IBOutlet UILabel *UserNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *CommentTextLabel;
+
 @end
                                             

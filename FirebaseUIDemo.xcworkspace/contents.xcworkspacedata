@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:IDNFeedParser"
+      name = "IDNFeedParser">
+      <FileRef
+         location = "group:NSDate+InternetDateTime.h">
+      </FileRef>
+      <FileRef
+         location = "group:IDNFeedParser.m">
+      </FileRef>
+      <FileRef
+         location = "group:NSString+HTML.h">
+      </FileRef>
+      <FileRef
+         location = "group:GTMNSString+HTML.h">
+      </FileRef>
+      <FileRef
+         location = "group:IDNFeedParser.h">
+      </FileRef>
+      <FileRef
+         location = "group:NSDate+InternetDateTime.m">
+      </FileRef>
+      <FileRef
+         location = "group:NSString+HTML.m">
+      </FileRef>
+      <FileRef
+         location = "group:GTMNSString+HTML.m">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:FirebaseUIDemo.xcodeproj">
    </FileRef>
