@@ -54,7 +54,7 @@
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-	[self prompting:@"正在加载"];
+	[self prompting:@"Loading"];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
@@ -62,7 +62,7 @@
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-	[self prompt:[NSString stringWithFormat:@"加载失败\n%@", error.localizedDescription] duration:2];
+	[self prompt:[NSString stringWithFormat:@"Load Error\n%@", error.localizedDescription] duration:2];
 }
 
 @end
