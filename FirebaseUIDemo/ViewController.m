@@ -72,6 +72,10 @@ didSignInWithUser:(nullable FIRUser *)user
 }
 
 
+
+- (IBAction)RssBtn:(id)sender {
+    [self performSegueWithIdentifier:@"ShowRss" sender:self];
+}
 //SignIN按钮
 - (IBAction)SigninBtn:(id)sender {
     if([self isUserSignedIn] == false){
