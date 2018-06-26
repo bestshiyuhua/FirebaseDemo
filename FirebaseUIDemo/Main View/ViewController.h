@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
-- (IBAction)RssBtn:(id)sender;
 - (IBAction)SigninBtn:(id)sender;
 - (IBAction)SignoutBtn:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *UserNameTextField;
