@@ -14,6 +14,8 @@
 
 @interface RssViewController () <UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic,strong) NSArray* feedItems;
+@property(nonatomic,strong) NSData* rssData;
+@property(nonatomic,strong) NSString* rssUrl;
 @property (weak, nonatomic) IBOutlet UITableView *RssTableView;
 
 @end
@@ -23,9 +25,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = _feedInfo.title;
     self.RssTableView.dataSource = self;
     self.RssTableView.delegate = self;
     self.RssTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    //Rss URL
     [self performSelector:@selector(setFeedInfo)];
 }
 - (void)setFeedInfo
@@ -36,20 +40,18 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         // 获取文章列表
-        NSArray* items = [IDNFeedParser feedItemsWithUrl:@"https://japanese.engadget.com/rss.xml"];
+        NSArray* items = [IDNFeedParser feedItemsWithUrl:self.feedInfo.url];
         if(items==nil) {
             //失败
-            [self.navigationController prompt:@"Loading Error" duration:2];
+            [self.navigationController prompt:@"Error" duration:2];
         }
-        
         else //成功
         {
+            [self.navigationController stopPrompt];
             // 解析完成后在主线程更新显示
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.feedItems = items;
-                NSLog(@"count:%lu",(unsigned long)self.feedItems.count);
                 [self.RssTableView reloadData];
-                [self.navigationController stopPrompt];
                 NSLog(@"loaded");
             });
         }

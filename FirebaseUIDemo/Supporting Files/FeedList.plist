@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>https://feeds.howtogeek.com/HowToGeek</string>
+	<string>https://www.cnet.com/rss/news/</string>
+	<string>https://www.computerworld.com/index.rss</string>
+	<string>https://www.recode.net/rss/index.xml</string>
+	<string>https://www.reddit.com/r/technology/.rss</string>
+	<string>https://feeds.feedburner.com/TechCrunch</string>
+	<string>https://techcrunch.cn/feed/</string>
+	<string>https://www.technologyreview.com/topnews.rss</string>
+</array>
+</plist>
