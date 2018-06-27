@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @interface CommentViewController : UIViewController
+- (IBAction)sentCommentBtn:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *commentText;
 
 //@property(nonatomic, strong) NSArray *listTeams;
 @end

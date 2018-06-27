@@ -68,39 +68,66 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //return self.tabledata_name.count;
-    return 3;
+    return self.tabledata_name.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"CommentCell";
-
-    //NSMutableArray *tabledata = [[NSMutableArray alloc] initWithCapacity:0];
     
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    //cell.UserNameLabel.text = [[self.tabledata_name objectAtIndex:indexPath.row]capitalizedString];
-    cell.UserNameLabel.text = @"shiyuhua";
+    cell.UserNameLabel.text = [[self.tabledata_name objectAtIndex:indexPath.row]capitalizedString];
+    //cell.UserNameLabel.text = @"shiyuhua";
     cell.UserImageView.image = [UIImage imageNamed:@"Custom_image*2.png"];
-    cell.CommentTextLabel.text = @"222222222222222222222";
-    //cell.CommentTextLabel.text = [[self.tabledata_comment objectAtIndex:indexPath.row]capitalizedString];
+    //cell.CommentTextLabel.text = @"222222222222222222222";
+    cell.CommentTextLabel.text = [[self.tabledata_comment objectAtIndex:indexPath.row]capitalizedString];
     return cell;
 }
 
-- (IBAction)submitBtn:(id)sender {
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+//键盘弹出
+-(void)keyboardWillChangeFrame:(NSNotification*)notification{
+    
+    NSLog(@"notification-info:%@",notification.userInfo);
+    //获取键盘弹起时y值
+    CGFloat keyboardY=[notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
+    //改变底部约束
+    self.bottomConstraint.constant=[UIScreen mainScreen].bounds.size.height-keyboardY;
+    //获取键盘弹起时间
+    CGFloat duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    [UIView animateWithDuration: duration animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    [self.view endEditing:YES];
+    
+}
+-(void)dealloc{
+    //移除通知
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    
+}
+
+- (IBAction)sentCommentBtn:(id)sender {
     FIRUser *user = [FIRAuth auth].currentUser;
     //submit comment to firestore
     [[[self.db collectionWithPath:@"users"] documentWithPath:user.displayName] setData:@{
-    //@"name": _nameTextField.text,
-    @"uid": user.uid,
-    @"name": user.displayName,
-    } completion:^(NSError * _Nullable error) {
-        if (error != nil) {
-            NSLog(@"Error writing document: %@", error);
-        } else {
-            NSLog(@"Document successfully written!");
-        }
-    }];
+         @"uid": user.uid,
+         @"name": user.displayName,
+         @"comment": self.commentText.text
+         } completion:^(NSError * _Nullable error) {
+             if (error != nil) {
+                 NSLog(@"Error writing document: %@", error);
+             } else {
+                 NSLog(@"Document successfully written!");
+             }
+         }];
     //reload tableview data
     FIRDocumentReference *docRef =
     [[self.db collectionWithPath:@"users"] documentWithPath:user.displayName];
@@ -115,43 +142,13 @@
             [self.tabledata_comment addObject:comment];
             NSLog(@"name:%@,comment:%@",name,comment);
             [self.CommentView reloadData];
+            //收回键盘
+            [self.commentText resignFirstResponder];
+            //清空输入框
+            self.commentText.text = @"";
         } else {
             NSLog(@"Document does not exist");
         }
     }];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-//键盘弹出
--(void)keyboardWillChangeFrame:(NSNotification*)notification{
-    
-    NSLog(@"notification-info:%@",notification.userInfo);
-    
-    //获取键盘弹起时y值
-    CGFloat keyboardY=[notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
-    
-    //改变底部约束
-    self.bottomConstraint.constant=[UIScreen mainScreen].bounds.size.height-keyboardY;
-    //获取键盘弹起时间
-    CGFloat duration=[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    [UIView animateWithDuration: duration animations:^{
-        [self.view layoutIfNeeded];
-    }];
-    
-}
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-    [self.view endEditing:YES];
-    
-}
--(void)dealloc{
-    //移除通知
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
-    
-}
-
 @end

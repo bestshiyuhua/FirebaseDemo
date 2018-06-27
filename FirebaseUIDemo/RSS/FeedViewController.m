@@ -13,7 +13,9 @@
 #import "RssViewController.h"
 
 @interface FeedViewController () <UITableViewDelegate,UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UIButton *editBtnTitle;
 @property (weak, nonatomic) IBOutlet UITableView *FeedTableView;
+@property (strong, nonatomic) IBOutlet UITextField *TextField;
 @property (strong, nonatomic) NSArray *feedArray;
 @property(nonatomic,strong) NSMutableArray* feedInfos;
 @property(nonatomic,strong) IDNFeedInfo * currentInfo;
@@ -30,8 +32,10 @@
     // get Feeds from plist
     [self getFeedFromPlist];
     [self setFeed];
+    self.TextField.hidden = YES;//隐藏addcell
 }
 
+//下载解析RSS
 - (void)setFeed{
     [self view];
     self.feedInfos = [NSMutableArray new];
@@ -57,6 +61,7 @@
     });
 }
 
+//从plist获取Feed
 - (void)getFeedFromPlist{
     NSString *plistPath = [[NSBundle mainBundle]pathForResource:@"FeedList" ofType:@"plist"];
     self.feedArray = [[NSArray alloc]initWithContentsOfFile:plistPath];
@@ -70,8 +75,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.feedArray.count;
-    //return 2;
+    return [self.feedInfos count]+1;//因为有add 所以多一个
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -79,30 +83,49 @@
     static NSString *CellIdentifier = @"FeedCell";
     
     FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    //cell复用
     if(cell == nil){
         cell = [[FeedTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
-    if (self.feedInfos != nil && ![self.feedInfos isKindOfClass:[NSNull class]] && self.feedInfos.count != 0){
-        IDNFeedInfo* info = self.feedInfos[indexPath.row];
-        cell.FeedTitle.text = info.title;
-        cell.FeedSummary.text = info.summary;
+    //add cell
+    BOOL b_addCell = (indexPath.row == self.feedInfos.count);
+    if (!b_addCell){
+        //从FeedInfos读取Feed数据
+        if (self.feedInfos != nil && ![self.feedInfos isKindOfClass:[NSNull class]] && self.feedInfos.count != 0){
+            //如果feedInfos不为空
+            IDNFeedInfo* info = self.feedInfos[indexPath.row];
+            cell.FeedTitle.text = info.title;
+            cell.FeedSummary.text = info.summary;
+        }
+        else{
+            cell.FeedTitle.text = @"Loading...";
+            cell.FeedSummary.text = @"Loading...";
+        }
     }
     else{
-        cell.FeedTitle.text = @"Loading...";
-        cell.FeedSummary.text = @"Loading...";
+        //给add cell加subview
+        self.TextField.frame = CGRectMake(10, 0, 300, 44);
+        self.TextField.borderStyle = UITextBorderStyleNone;
+        self.TextField.placeholder = @"Add...";
+        self.TextField.text = @"";
+        //label置空
+        cell.FeedTitle.text = @"";
+        cell.FeedSummary.text = @"";
+        [cell.contentView addSubview:self.TextField];
     }
     return cell;
 }
+//跳到某个RSS文章列表
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //获取当前cell的info
     self.currentInfo = self.feedInfos[indexPath.row];
     [self performSegueWithIdentifier:@"ShowRss" sender:self];
 }
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+//给下个页面传info数据
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"ShowRss"]) {
@@ -112,5 +135,49 @@
     }
 }
 
+//右上角编辑按钮
+- (IBAction)editBtn:(id)sender {
+    if([_editBtnTitle.currentTitle isEqualToString:@"Edit"]){
+        //进入编辑状态
+        [self.editBtnTitle setTitle:@"Cancle" forState:UIControlStateNormal];
+        [self.FeedTableView setEditing:YES animated:YES];
+        self.TextField.hidden = NO;
+    }
+    else{
+        //退出编辑状态
+        [self.editBtnTitle setTitle:@"Edit" forState:UIControlStateNormal];
+        [self.FeedTableView setEditing:NO animated:NO];
+        self.TextField.hidden = YES;
+    }
+}
+//插入和删除的状态图标（-）（+）
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == [self.feedInfos count]){
+        return UITableViewCellEditingStyleInsert;
+    }
+    else{
+        return UITableViewCellEditingStyleDelete;
+    }
+}
 
+//插入和删除
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
+    if (editingStyle == UITableViewCellEditingStyleDelete){
+        //删除cell数据源
+        [self.feedInfos removeObjectAtIndex:indexPath.row];
+        //删除cell
+        [self.FeedTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    }
+    else if(editingStyle == UITableViewCellEditingStyleInsert){
+        IDNFeedInfo *info = [IDNFeedParser feedInfoWithUrl:@"https://cn.engadget.com/rss.xml"];;
+        //添加数据源
+        [self.feedInfos insertObject:info atIndex:[self.feedInfos count]];
+        //添加cell
+        [self.FeedTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    }
+    [self.FeedTableView reloadData];
+}
 @end

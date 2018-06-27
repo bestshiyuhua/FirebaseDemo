@@ -31,6 +31,7 @@
 		94C01D5620E1D04F00E8529D /* FeedList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94C01D5520E1D04F00E8529D /* FeedList.plist */; };
 		94C01D5E20E1D3FD00E8529D /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C01D5D20E1D3FD00E8529D /* FeedTableViewCell.m */; };
 		94C01D6120E1D42D00E8529D /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C01D6020E1D42D00E8529D /* FeedViewController.m */; };
+		94C01D6420E219A500E8529D /* start_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 94C01D6320E219A500E8529D /* start_screen.png */; };
 		94C9980A20CA5A2C004E3C57 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C9980820CA5A2B004E3C57 /* CustomCell.m */; };
 		94C9980F20CA60C1004E3C57 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C9980E20CA60C1004E3C57 /* CommentViewController.m */; };
 		A5FACC3C236C88D3EABCA2D4 /* Pods_FirebaseUIDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEFE95E29DB942FB23AF4A0 /* Pods_FirebaseUIDemoTests.framework */; };
@@ -103,6 +104,7 @@
 		94C01D5F20E1D42D00E8529D /* FeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		94C01D6020E1D42D00E8529D /* FeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		94C01D6220E1DAAE00E8529D /* FirebaseUIDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FirebaseUIDemo.entitlements; sourceTree = "<group>"; };
+		94C01D6320E219A500E8529D /* start_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_screen.png; sourceTree = "<group>"; };
 		94C9980820CA5A2B004E3C57 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
 		94C9980920CA5A2C004E3C57 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
 		94C9980E20CA60C1004E3C57 /* CommentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				94C01D5520E1D04F00E8529D /* FeedList.plist */,
 				943D2E0220C9270A00E182E7 /* FirebaseUIDemo.entitlements */,
 				94AD018C20C7B4F2000FF912 /* main.m */,
+				94C01D6320E219A500E8529D /* start_screen.png */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				94AD018A20C7B4F2000FF912 /* LaunchScreen.storyboard in Resources */,
 				94AD01B020C7B601000FF912 /* GoogleService-Info.plist in Resources */,
 				94AD018720C7B4F2000FF912 /* Assets.xcassets in Resources */,
+				94C01D6420E219A500E8529D /* start_screen.png in Resources */,
 				9400AF0120D09F97008C6278 /* Custom_image*2.png in Resources */,
 				94AD018520C7B4F0000FF912 /* Main.storyboard in Resources */,
 			);
@@ -760,7 +764,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D3B025ED2900874B0F1E206A /* Pods-FirebaseUIDemo.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FirebaseUIDemo/FirebaseUIDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NQDMAQMHDL;
@@ -780,7 +783,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FA7D592E55E6E58485FD6AB7 /* Pods-FirebaseUIDemo.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FirebaseUIDemo/FirebaseUIDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NQDMAQMHDL;

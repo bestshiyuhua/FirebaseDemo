@@ -176,7 +176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p1N-YF-iqA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1262" y="780"/>
+            <point key="canvasLocation" x="1262" y="803"/>
         </scene>
         <!--Feed View Controller-->
         <scene sceneID="ia6-v5-0fy">
@@ -237,13 +237,33 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="9Zg-j6-7lY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="T9o-2H-Xo8"/>
+                    <navigationItem key="navigationItem" id="T9o-2H-Xo8">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="ASq-NR-OQ2">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t3i-fn-QaN">
+                                <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Edit"/>
+                                <connections>
+                                    <action selector="editBtn:" destination="crT-h8-TYz" eventType="touchUpInside" id="bgd-Yb-qDh"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="FeedTableView" destination="793-0W-eAR" id="Z7O-ab-4ft"/>
+                        <outlet property="TextField" destination="mf1-nK-NHe" id="ekR-j9-9YO"/>
+                        <outlet property="editBtnTitle" destination="t3i-fn-QaN" id="AFn-Sf-gdy"/>
                         <segue destination="QW8-dd-uai" kind="show" identifier="ShowRss" id="XaJ-VW-RYr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mBZ-46-kFt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="mf1-nK-NHe">
+                    <rect key="frame" x="0.0" y="0.0" width="97" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </objects>
             <point key="canvasLocation" x="481" y="803"/>
         </scene>
@@ -272,6 +292,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fOs-kY-8wi">
                                         <rect key="frame" x="325" y="8" width="36" height="30"/>
                                         <state key="normal" title="Send"/>
+                                        <connections>
+                                            <action selector="sentCommentBtn:" destination="ZgB-kL-bCq" eventType="touchUpInside" id="opA-CB-LII"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -400,6 +423,7 @@
                     <connections>
                         <outlet property="CommentView" destination="FOm-NA-MCG" id="fvA-Q3-gQM"/>
                         <outlet property="bottomConstraint" destination="nnu-mB-pe5" id="v8W-OU-hLy"/>
+                        <outlet property="commentText" destination="uHI-Do-ZiM" id="T8R-xH-Tjw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="86f-6y-9Fw" userLabel="First Responder" sceneMemberID="firstResponder"/>
