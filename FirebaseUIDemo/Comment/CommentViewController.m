@@ -90,8 +90,6 @@
 }
 //键盘弹出
 -(void)keyboardWillChangeFrame:(NSNotification*)notification{
-    
-    NSLog(@"notification-info:%@",notification.userInfo);
     //获取键盘弹起时y值
     CGFloat keyboardY=[notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
     //改变底部约束
@@ -117,20 +115,23 @@
 - (IBAction)sentCommentBtn:(id)sender {
     FIRUser *user = [FIRAuth auth].currentUser;
     //submit comment to firestore
-    [[[self.db collectionWithPath:@"users"] documentWithPath:user.displayName] setData:@{
+    [[[self.db collectionWithPath:@"users"] documentWithPath:user.uid] setData:@{
          @"uid": user.uid,
          @"name": user.displayName,
-         @"comment": self.commentText.text
-         } completion:^(NSError * _Nullable error) {
-             if (error != nil) {
-                 NSLog(@"Error writing document: %@", error);
-             } else {
-                 NSLog(@"Document successfully written!");
-             }
-         }];
+         @"comment": self.commentText.text,
+         @"lastUpdated": [FIRFieldValue fieldValueForServerTimestamp]
+         }
+    merge:YES
+    completion:^(NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"Error writing document: %@", error);
+        } else {
+            NSLog(@"Document successfully written!");
+        }
+    }];
     //reload tableview data
     FIRDocumentReference *docRef =
-    [[self.db collectionWithPath:@"users"] documentWithPath:user.displayName];
+    [[self.db collectionWithPath:@"users"] documentWithPath:user.uid];
     [docRef getDocumentWithCompletion:^(FIRDocumentSnapshot *snapshot, NSError *error) {
         if (snapshot.exists) {
             // Document data may be nil if the document exists but has no keys or values.

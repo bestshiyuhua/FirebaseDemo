@@ -40,6 +40,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		940220C620E487B6002A1DB4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 94AD017220C7B4F0000FF912 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94AD017920C7B4F0000FF912;
+			remoteInfo = FirebaseUIDemo;
+		};
 		94AD019320C7B4F2000FF912 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 94AD017220C7B4F0000FF912 /* Project object */;
@@ -62,6 +69,7 @@
 		6D6DFA9E1820DD2E5420736F /* Pods-FirebaseUIDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseUIDemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FirebaseUIDemoTests/Pods-FirebaseUIDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		7BEFE95E29DB942FB23AF4A0 /* Pods_FirebaseUIDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FirebaseUIDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9400AF0020D09F97008C6278 /* Custom_image*2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Custom_image*2.png"; sourceTree = "<group>"; };
+		940220C120E487B6002A1DB4 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		943D2E0220C9270A00E182E7 /* FirebaseUIDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FirebaseUIDemo.entitlements; sourceTree = "<group>"; };
 		9492CE0F20DF16200077D4AE /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		9492CE1020DF16210077D4AE /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
@@ -117,6 +125,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		940220BE20E487B6002A1DB4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94AD017720C7B4F0000FF912 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -185,6 +200,7 @@
 				94AD017A20C7B4F0000FF912 /* FirebaseUIDemo.app */,
 				94AD019220C7B4F2000FF912 /* FirebaseUIDemoTests.xctest */,
 				94AD019D20C7B4F2000FF912 /* FirebaseUIDemoUITests.xctest */,
+				940220C120E487B6002A1DB4 /* UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -298,6 +314,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		940220C020E487B6002A1DB4 /* UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 940220CA20E487B6002A1DB4 /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildPhases = (
+				940220BD20E487B6002A1DB4 /* Sources */,
+				940220BE20E487B6002A1DB4 /* Frameworks */,
+				940220BF20E487B6002A1DB4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				940220C720E487B6002A1DB4 /* PBXTargetDependency */,
+			);
+			name = UnitTests;
+			productName = UnitTests;
+			productReference = 940220C120E487B6002A1DB4 /* UnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		94AD017920C7B4F0000FF912 /* FirebaseUIDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94AD01A620C7B4F2000FF912 /* Build configuration list for PBXNativeTarget "FirebaseUIDemo" */;
@@ -365,6 +399,10 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Yuhua Shi";
 				TargetAttributes = {
+					940220C020E487B6002A1DB4 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 94AD017920C7B4F0000FF912;
+					};
 					94AD017920C7B4F0000FF912 = {
 						CreatedOnToolsVersion = 9.4;
 						SystemCapabilities = {
@@ -399,11 +437,19 @@
 				94AD017920C7B4F0000FF912 /* FirebaseUIDemo */,
 				94AD019120C7B4F2000FF912 /* FirebaseUIDemoTests */,
 				94AD019C20C7B4F2000FF912 /* FirebaseUIDemoUITests */,
+				940220C020E487B6002A1DB4 /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		940220BF20E487B6002A1DB4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94AD017820C7B4F0000FF912 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -576,6 +622,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		940220BD20E487B6002A1DB4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94AD017620C7B4F0000FF912 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -618,6 +671,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		940220C720E487B6002A1DB4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94AD017920C7B4F0000FF912 /* FirebaseUIDemo */;
+			targetProxy = 940220C620E487B6002A1DB4 /* PBXContainerItemProxy */;
+		};
 		94AD019420C7B4F2000FF912 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 94AD017920C7B4F0000FF912 /* FirebaseUIDemo */;
@@ -650,6 +708,47 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		940220C820E487B6002A1DB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NQDMAQMHDL;
+				INFOPLIST_FILE = UnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				PRODUCT_BUNDLE_IDENTIFIER = DLS.UnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FirebaseUIDemo.app/FirebaseUIDemo";
+			};
+			name = Debug;
+		};
+		940220C920E487B6002A1DB4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NQDMAQMHDL;
+				INFOPLIST_FILE = UnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = DLS.UnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FirebaseUIDemo.app/FirebaseUIDemo";
+			};
+			name = Release;
+		};
 		94AD01A420C7B4F2000FF912 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -879,6 +978,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		940220CA20E487B6002A1DB4 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				940220C820E487B6002A1DB4 /* Debug */,
+				940220C920E487B6002A1DB4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		94AD017520C7B4F0000FF912 /* Build configuration list for PBXProject "FirebaseUIDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -11,36 +11,89 @@
 #import "IDNFeedParser.h"
 #import "UIViewController+IDNPrompt.h"
 #import "RssViewController.h"
+@import Firebase;
 
 @interface FeedViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIButton *editBtnTitle;
 @property (weak, nonatomic) IBOutlet UITableView *FeedTableView;
 @property (strong, nonatomic) IBOutlet UITextField *TextField;
-@property (strong, nonatomic) NSArray *feedArray;
+@property (strong, nonatomic) NSMutableArray *feedArray;
 @property(nonatomic,strong) NSMutableArray* feedInfos;
 @property(nonatomic,strong) IDNFeedInfo * currentInfo;
+@property (nonatomic, readwrite) FIRFirestore *db;
 @end
 
 @implementation FeedViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //firestore 初始化
+    FIRFirestoreSettings *settings = [[FIRFirestoreSettings alloc] init];
+    settings.persistenceEnabled = YES;
+    self.db = [FIRFirestore firestore];
+    self.db.settings = settings;
     // datasource & delegate
     self.FeedTableView.dataSource = self;
     self.FeedTableView.delegate = self;
     self.title = @"Feed List";
     // get Feeds from plist
-    [self getFeedFromPlist];
-    [self setFeed];
+    [self getFeed];
     self.TextField.hidden = YES;//隐藏addcell
+    //self.feedArray = [[NSMutableArray alloc] initWithCapacity:0];
+
 }
 
+- (void)getFeed{
+    FIRUser *user = [FIRAuth auth].currentUser;
+    if (user != nil){
+        //登录状态
+        NSLog(@"%@",user.displayName);
+        [self getFeedFromFirestore];
+    }
+    else{
+        //未登录状态
+        [self getFeedFromPlist];
+        NSLog(@"user not log in");
+        [self setFeed];
+    }
+}
+//从plist获取Feed
+- (void)getFeedFromPlist{
+    NSString *plistPath = [[NSBundle mainBundle]pathForResource:@"FeedList" ofType:@"plist"];
+    self.feedArray = [[NSMutableArray alloc]initWithContentsOfFile:plistPath];
+    NSLog(@"%@",self.feedArray);
+}
+
+- (void)getFeedFromFirestore{
+    
+    FIRUser *user = [FIRAuth auth].currentUser;
+    FIRDocumentReference *docRef = [[[[self.db collectionWithPath:@"users"] documentWithPath:user.uid] collectionWithPath:@"subs"] documentWithPath:@"sub"];
+    [docRef getDocumentWithCompletion:^(FIRDocumentSnapshot *snapshot, NSError *error) {
+        if (snapshot.exists) {
+            // Document data may be nil if the document exists but has no keys or values.
+            NSLog(@"%@",self.feedArray);
+            self.feedArray = [snapshot.data objectForKey:@"sub1"];
+            NSLog(@"%@",self.feedArray);
+            [self setFeed];
+
+        } else {
+            NSLog(@"Document does not exist");
+            [self getFeedFromPlist];
+            [docRef setData:@{
+                              @"sub1":self.feedArray
+                              }
+                      merge:YES];
+            [self setFeed];
+        }
+        
+    }];
+}
 //下载解析RSS
 - (void)setFeed{
     [self view];
     self.feedInfos = [NSMutableArray new];
-    int count = self.feedArray.count;
-    NSLog(@"Count:%d",count);
+    NSInteger count = [self.feedArray count];
+    NSLog(@"Count:%ld",(long)count);
     [self.navigationController prompting:@"Loading RSS Feed"];
     // 在后台线程下载解析RSS
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -59,18 +112,6 @@
             });
         }
     });
-}
-
-//从plist获取Feed
-- (void)getFeedFromPlist{
-    NSString *plistPath = [[NSBundle mainBundle]pathForResource:@"FeedList" ofType:@"plist"];
-    self.feedArray = [[NSArray alloc]initWithContentsOfFile:plistPath];
-    NSLog(@"%@",self.feedArray);
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -165,19 +206,62 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
+    //获取database引用
+    FIRUser *user = [FIRAuth auth].currentUser;
+
+
+    //判断删除还是插入
     if (editingStyle == UITableViewCellEditingStyleDelete){
         //删除cell数据源
         [self.feedInfos removeObjectAtIndex:indexPath.row];
+        if (user){
+            [self.feedArray removeObjectAtIndex:indexPath.row];
+            FIRDocumentReference *docRef = [[[[self.db collectionWithPath:@"users"] documentWithPath:user.uid] collectionWithPath:@"subs"] documentWithPath:@"sub"];
+            [docRef getDocumentWithCompletion:^(FIRDocumentSnapshot *snapshot, NSError *error) {
+                if (snapshot.exists) {
+                    // 更新数据
+                    [docRef setData:@{
+                                      @"sub1":self.feedArray
+                                      }
+                              merge:YES];
+                } else {
+                    NSLog(@"Document does not exist");
+                }
+            }];
+        }
         //删除cell
         [self.FeedTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+        
     }
     else if(editingStyle == UITableViewCellEditingStyleInsert){
-        IDNFeedInfo *info = [IDNFeedParser feedInfoWithUrl:@"https://cn.engadget.com/rss.xml"];;
+        NSString *url = @"https://cn.engadget.com/rss.xml";
+        IDNFeedInfo *info = [IDNFeedParser feedInfoWithUrl:url];
         //添加数据源
         [self.feedInfos insertObject:info atIndex:[self.feedInfos count]];
+        if (user){
+            [self.feedArray insertObject:url atIndex:[self.feedArray count]];
+            FIRDocumentReference *docRef = [[[[self.db collectionWithPath:@"users"] documentWithPath:user.uid] collectionWithPath:@"subs"] documentWithPath:@"sub"];
+            [docRef getDocumentWithCompletion:^(FIRDocumentSnapshot *snapshot, NSError *error) {
+                if (snapshot.exists) {
+                    // 更新数据
+                    [docRef setData:@{
+                                      @"sub1":self.feedArray
+                                      }
+                              merge:YES];
+                } else {
+                    NSLog(@"Document does not exist");
+                }
+            }];
+        }
         //添加cell
         [self.FeedTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+        
     }
     [self.FeedTableView reloadData];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 @end

@@ -10,5 +10,5 @@
 
 @interface FeedViewController : UIViewController
 - (IBAction)editBtn:(id)sender;
-
+- (int)getNum;
 @end

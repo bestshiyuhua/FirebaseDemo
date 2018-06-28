@@ -7,9 +7,9 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "FeedViewController.h"
 
 @interface FirebaseUIDemoTests : XCTestCase
-
 @end
 
 @implementation FirebaseUIDemoTests
